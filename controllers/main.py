@@ -1,13 +1,12 @@
 import webapp2
-import jinja2
 from google.appengine.api import users
 import os
+import logging
+import template_engine
 
-JINJA_ENVIRONMENT = jinja2.Environment(
-    loader=jinja2.FileSystemLoader(os.path.dirname(__file__)),
-    extensions=['jinja2.ext.autoescape'],
-    autoescape=True
-)
+from models.anagram import Anagram
+from library.helper import Helper
+
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
@@ -18,6 +17,11 @@ class MainPage(webapp2.RequestHandler):
         url_string = ''
         # pull the current user from the request
         user = users.get_current_user()
+        # aaa = Anagram(tags = ["abc","abc","abc","abc"], ena_count = len(["abc","abc","abc","abc"]))
+        # aaa.put()
+
+        #logging.info(Helper.get_word_key("asdsadssdsd"))
+        Helper.validate_string("abcAAA")
         if user:
             url = users.create_logout_url(self.request.uri)
             url_string = 'logout'
@@ -33,7 +37,7 @@ class MainPage(webapp2.RequestHandler):
 
         # pull the template file and ask jinja to render
         # it with the given template values
-        template = JINJA_ENVIRONMENT.get_template('main.html')
+        template = template_engine.JINJA_ENVIRONMENT.get_template('views/home.html')
         self.response.write(template.render(template_values))
 
 app = webapp2.WSGIApplication([

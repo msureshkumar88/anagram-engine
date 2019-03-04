@@ -8,4 +8,7 @@ libraries:
 
 handlers:
 - url: /
-  script: main.app
+  script: controllers.main.app
+
+- url: /assets
+  static_dir: assets
