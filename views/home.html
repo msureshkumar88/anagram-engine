@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "/templates/base.html" %}
+{% block title %}GPU DB{% endblock %}
+{% block user_url %}{{url}}{% endblock %}{% block user_text %}{{url_string}}{% endblock %}
+{% block content %}
+    <div class="text-center">
+        <div class="display-1">Welcome to Anagram Engine</div>
+        <div class="display-3">By</div>
+        <div class="display-1">M. Suresh Kumar</div>
+        <div class="display-3">2997599</div>
+    </div>
 
-</body>
-</html>
+
+{% endblock %}
