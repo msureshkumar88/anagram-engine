@@ -1,0 +1,15 @@
+{% extends "/templates/base.html" %}
+{% block title %}GPU DB{% endblock %}
+{% block user_url %}{{url}}{% endblock %}{% block user_text %}{{url_string}}{% endblock %}
+{% block content %}
+
+{% for err in errors %}
+    {{err}}
+{% endfor %}
+
+<form method="post" action="/anagram/save">
+<input type="text" name="word"/>
+    <input type="submit">
+</form>
+
+{% endblock %}

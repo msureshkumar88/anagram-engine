@@ -10,6 +10,7 @@ class UserController:
         user = users.get_current_user()
         url = ''
         url_string = ''
+        myuser = None;
         if user:
             url = users.create_logout_url(current_user.request.uri)
             url_string = 'Logout'
@@ -25,10 +26,11 @@ class UserController:
         data = {
             'url': url,
             'url_string': url_string,
-            'user': user,
+            'user': myuser,
+            'user_id':user.user_id()
         }
         return data
 
     @classmethod
     def get_current_user(cls):
-        return users.get_current_user();
+        return users.get_current_user()
