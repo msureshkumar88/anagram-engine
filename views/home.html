@@ -2,12 +2,38 @@
 {% block title %}GPU DB{% endblock %}
 {% block user_url %}{{url}}{% endblock %}{% block user_text %}{{url_string}}{% endblock %}
 {% block content %}
-    <div class="text-center">
-        <div class="display-1">Welcome to Anagram Engine</div>
-        <div class="display-3">By</div>
-        <div class="display-1">M. Suresh Kumar</div>
-        <div class="display-3">2997599</div>
+<!--<div class="text-center">-->
+<!--<div class="display-1">Welcome to Anagram Engine</div>-->
+<!--<div class="display-3">By</div>-->
+<!--<div class="display-1">M. Suresh Kumar</div>-->
+<!--<div class="display-3">2997599</div>-->
+<!--</div>-->
+<div class="row">
+    <div class="col-md-6">
+        {% if errors %}
+        <div class="alert alert-danger">{{errors}}</div>
+        {% endif %}
+        <form class="form-inline" name="search" method="post" action="">
+            <div class="form-check form-check-inline">
+                <label class="form-check-label" for="search">Search </label>
+                <input type="text" class="form-check-input" name="word" id="search">
+            </div>
+
+            <input type="hidden" name="form" value="search_anagrams">
+            <input class="btn btn-info" type="submit" name="button" value="Search">
+
+        </form>
     </div>
+</div>
+<div class="row">
+    <div class="col-md-6">
+<ul class="list-group">
+            {% for val in anagrams %}
+            <li class="list-group-item">{{ val }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 
 {% endblock %}
