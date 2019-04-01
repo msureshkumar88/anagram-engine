@@ -7,6 +7,8 @@ import template_engine
 from models.anagram import Anagram
 from library.helper import Helper
 from library.user import UserController
+from models.user import User
+from models.anagram import Anagram
 
 
 class MainPage(webapp2.RequestHandler):

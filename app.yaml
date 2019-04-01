@@ -13,5 +13,8 @@ handlers:
 - url: /anagram/save
   script: controllers.anagram_request.app
 
+- url: /anagram/search
+  script: controllers.anagram_request.app
+
 - url: /assets
   static_dir: assets

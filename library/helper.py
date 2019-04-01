@@ -7,10 +7,10 @@ import re
 class Helper:
 
     @classmethod
-    def get_word_key(cls, word):
+    def get_word_key(cls, user_email, word):
         letters = list(word)
         letters = sorted(letters)
-        return ''.join(letters)
+        return  user_email +'/' + ''.join(letters)
 
     @classmethod
     def validate_string(cls, word):
