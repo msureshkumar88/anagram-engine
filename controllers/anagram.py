@@ -95,11 +95,21 @@ class AnagramController:
         request.response.headers['Content-Type'] = 'text/html'
         user = UserController.get_user(request)
         errors = []
-        logging.info(request.request.get('word'))
+        word = request.request.get('word')
+        anagrams_request = ndb.Key('Anagram', Helper.get_word_key(user["user"].email, word))
+        anagrams_request = anagrams_request.get()
+        anagrams = []
+        if anagrams_request:
+            anagrams = anagrams_request.anagram
+        else:
+            errors.append("Anagrams not available for this search")
+
+
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
-            'errors': errors
+            'errors': errors,
+            'anagrams': anagrams
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/search.html')
         request.response.write(template.render(data))
