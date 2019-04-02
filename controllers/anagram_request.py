@@ -24,6 +24,8 @@ class AnagramRequest(webapp2.RequestHandler):
             AnagramController.search_get(self)
         elif path == "/anagram/sub_anagram":
             AnagramController.subanagram_get(self)
+        elif path == "/anagram/upload":
+            AnagramController.upload_get(self)
 
     def post(self):
         self.response.headers['Content-Type'] = 'text/html'
@@ -35,10 +37,13 @@ class AnagramRequest(webapp2.RequestHandler):
             AnagramController.search_post(self)
         elif path == "/anagram/sub_anagram":
             AnagramController.subanagram_post(self)
+        elif path == "/anagram/upload":
+            AnagramController.upload_post(self)
 
 
 app = webapp2.WSGIApplication([
     ('/anagram/save', AnagramRequest),
     ('/anagram/search', AnagramRequest),
-    ('/anagram/sub_anagram', AnagramRequest)
+    ('/anagram/sub_anagram', AnagramRequest),
+    ('/anagram/upload', AnagramRequest)
 ], debug=True)

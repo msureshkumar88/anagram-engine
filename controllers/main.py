@@ -40,6 +40,7 @@ class MainPage(webapp2.RequestHandler):
             'url': user["url"],
             'url_string': user['url_string'],
             'errors': errors,
+            'user': user['user'],
             'anagrams': anagrams
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/home.html')

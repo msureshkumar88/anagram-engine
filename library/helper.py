@@ -1,8 +1,10 @@
 import logging
 
-from models import anagram
+from models.anagram import Anagram
+from models import user
 import re
 import itertools
+from google.appengine.ext import ndb
 
 class Helper:
 
@@ -43,4 +45,35 @@ class Helper:
         # for each in itertools.permutations(list(word), 3):
         #     logging.info(each)
         # return itertools.permutations(word, len(word)-1)
+
+    @classmethod
+    def saveAnagram(cls, word, user_email):
+        anagram_key = ndb.Key('Anagram', Helper.get_word_key(user_email, word))
+        anagram1 = anagram_key.get()
+        word = word.lower()
+        if anagram1:
+            if word not in anagram1.anagram:
+                anagram1.anagram.append(word)
+                anagram1.anagram_count = anagram1.anagram_count + 1
+                anagram1.put()
+
+                user_key = ndb.Key('User', user_email)
+                user1 = user_key.get()
+                user1.total_anagrams = user1.total_anagrams + 1
+                user1.put()
+
+        else:
+            letter_count = len(word)
+            newAnagram = Anagram(id=Helper.get_word_key(user_email, word), anagram_count=1,
+                                 letter_count=letter_count, anagram=[word], user_key=user_email)
+            newAnagram.put()
+
+            user_key = ndb.Key('User', user_email)
+            user1 = user_key.get()
+            user1.total_words = user1.total_words + 1
+            user1.total_anagrams = user1.total_anagrams + 1
+            user1.put()
+        return
+
+
 

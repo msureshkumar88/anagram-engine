@@ -11,7 +11,7 @@ from library.user import UserController
 import collections
 from models.user import User
 import itertools
-
+from google.appengine.ext import blobstore
 
 class AnagramController:
     @classmethod
@@ -34,41 +34,10 @@ class AnagramController:
         user = UserController.get_user(request)
 
         word = request.request.get('word')
-        Anagram1 = ""
         if Helper.validate_string(word) == None:
             errors.append("Please enter valid word")
         else:
-            Anagram_key = ndb.Key('Anagram', Helper.get_word_key(user["user"].email, word))
-            Anagram1 = Anagram_key.get()
-            # Anagram1.anagram.append("sdsdsd")
-            # logging.info(Anagram1.anagram)
-            # return
-            # if Anagram1:
-            #     errors.append("word already exist")
-
-        if len(errors) == 0:
-            if Anagram1:
-                if word not in Anagram1.anagram:
-                    Anagram1.anagram.append(word)
-                    Anagram1.anagram_count = Anagram1.anagram_count + 1
-                    Anagram1.put()
-
-                    user_key = ndb.Key('User', user["user"].email)
-                    user1 = user_key.get()
-                    user1.total_anagrams = user1.total_anagrams + 1
-                    user1.put()
-
-            else:
-                letter_count = len(word)
-                newAnagram = Anagram(id=Helper.get_word_key(user["user"].email, word), anagram_count=1,
-                                     letter_count=letter_count, anagram=[word], user_key=user["user_id"])
-                newAnagram.put()
-
-                user_key = ndb.Key('User', user["user"].email)
-                user1 = user_key.get()
-                user1.total_words = user1.total_words + 1
-                user1.total_anagrams = user1.total_anagrams + 1
-                user1.put()
+            Helper.saveAnagram(word,user["user"].email)
 
         data = {
             'url': user["url"],
@@ -160,9 +129,28 @@ class AnagramController:
             'user': user['user'],
             'anagrams': matched_subs
         }
-        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/sub_anagram.html')
+        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/upload.html')
         request.response.write(template.render(data))
 
+    @classmethod
+    def upload_get(cls, request):
+        request.response.headers['Content-Type'] = 'text/html'
+        user = UserController.get_user(request)
+        errors = []
+        upload_url = blobstore.create_upload_url('/upload_text')
+        data = {
+            'url': user["url"],
+            'url_string': user['url_string'],
+            'errors': errors,
+            'user': user['user'],
+            'upload_url': upload_url
+        }
+        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/upload.html')
+        request.response.write(template.render(data))
+
+    @classmethod
+    def upload_post(cls, request):
+        pass
 
 app = webapp2.WSGIApplication([
     ('/anagram/save', AnagramController)
