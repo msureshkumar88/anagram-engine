@@ -2,7 +2,7 @@ import logging
 
 from models import anagram
 import re
-
+import itertools
 
 class Helper:
 
@@ -30,4 +30,17 @@ class Helper:
                         anagram_list.append(j + letter)
 
         return anagram_list
+
+    @classmethod
+    def getAnagramCombinations(cls, word):
+        anagrams = []
+        for i in range(len(word)-1,2, -1):
+            combi = ["".join(x) for x in list(itertools.permutations(word, i))]
+            anagrams.extend(combi)
+
+        logging.info(itertools.permutations(word, 3))
+        return anagrams
+        # for each in itertools.permutations(list(word), 3):
+        #     logging.info(each)
+        # return itertools.permutations(word, len(word)-1)
 

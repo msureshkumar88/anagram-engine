@@ -10,6 +10,7 @@ from library.helper import Helper
 from library.user import UserController
 import collections
 from models.user import User
+import itertools
 
 
 class AnagramController:
@@ -40,7 +41,7 @@ class AnagramController:
             Anagram1 = Anagram_key.get()
             # Anagram1.anagram.append("sdsdsd")
             # logging.info(Anagram1.anagram)
-            #return
+            # return
             # if Anagram1:
             #     errors.append("word already exist")
 
@@ -104,7 +105,6 @@ class AnagramController:
         else:
             errors.append("Anagrams not available for this search")
 
-
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
@@ -113,6 +113,51 @@ class AnagramController:
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/search.html')
         request.response.write(template.render(data))
+
+    @classmethod
+    def subanagram_get(cls, request):
+        request.response.headers['Content-Type'] = 'text/html'
+        user = UserController.get_user(request)
+        errors = []
+
+        data = {
+            'url': user["url"],
+            'url_string': user['url_string'],
+            'errors': errors
+        }
+        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/sub_anagram.html')
+        request.response.write(template.render(data))
+
+    @classmethod
+    def subanagram_post(cls, request):
+        request.response.headers['Content-Type'] = 'text/html'
+        user = UserController.get_user(request)
+        errors = []
+        anagrams = []
+        word = request.request.get('word')
+        logging.info(word)
+        sub_anagrams = Helper.getAnagramCombinations(word)
+        matched_subs = []
+        keys = []
+        for val in sub_anagrams:
+            sub_key = Helper.get_word_key(user["user"].email, val)
+            Anagram_key = ndb.Key('Anagram', sub_key)
+            Anagram = Anagram_key.get()
+            if Anagram and not sub_key in keys:
+                matched_subs.extend(Anagram.anagram)
+                keys.append(sub_key)
+        if not matched_subs:
+            errors.append("There are no sub anagrams available for this search")
+        logging.info(matched_subs)
+        data = {
+            'url': user["url"],
+            'url_string': user['url_string'],
+            'errors': errors,
+            'anagrams': matched_subs
+        }
+        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/sub_anagram.html')
+        request.response.write(template.render(data))
+
 
 app = webapp2.WSGIApplication([
     ('/anagram/save', AnagramController)
