@@ -19,5 +19,11 @@ handlers:
 - url: /anagram/sub_anagram
   script: controllers.anagram_request.app
 
+- url: /anagram/upload
+  script: controllers.anagram_request.app
+
+- url: /upload_text
+  script: controllers.anagram_upload.app
+
 - url: /assets
   static_dir: assets
