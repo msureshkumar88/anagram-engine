@@ -18,7 +18,7 @@ class MainPage(webapp2.RequestHandler):
         template_values = {
             'url': user["url"],
             'url_string': user['url_string'],
-            'user': user
+            'user': user['user']
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/home.html')
         self.response.write(template.render(template_values))

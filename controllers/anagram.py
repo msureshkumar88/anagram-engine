@@ -22,6 +22,7 @@ class AnagramController:
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
+            'user': user['user']
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/save.html')
         request.response.write(template.render(data))
@@ -72,6 +73,7 @@ class AnagramController:
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
+            'user': user['user'],
             'errors': errors
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/save.html')
@@ -109,6 +111,7 @@ class AnagramController:
             'url': user["url"],
             'url_string': user['url_string'],
             'errors': errors,
+            'user': user['user'],
             'anagrams': anagrams
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/search.html')
@@ -123,6 +126,7 @@ class AnagramController:
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
+            'user': user['user'],
             'errors': errors
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/sub_anagram.html')
@@ -153,6 +157,7 @@ class AnagramController:
             'url': user["url"],
             'url_string': user['url_string'],
             'errors': errors,
+            'user': user['user'],
             'anagrams': matched_subs
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/sub_anagram.html')
