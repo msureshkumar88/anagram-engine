@@ -6,13 +6,20 @@ import re
 import itertools
 from google.appengine.ext import ndb
 
+
 class Helper:
 
     @classmethod
     def get_word_key(cls, user_email, word):
         letters = list(word)
         letters = sorted(letters)
-        return  user_email +'/' + ''.join(letters)
+        return user_email + '/' + ''.join(letters)
+
+    @classmethod
+    def getSortedWord(cls, word):
+        letters = list(word)
+        letters = sorted(letters)
+        return ''.join(letters)
 
     @classmethod
     def validate_string(cls, word):
@@ -36,15 +43,10 @@ class Helper:
     @classmethod
     def getAnagramCombinations(cls, word):
         anagrams = []
-        for i in range(len(word)-1,2, -1):
-            combi = ["".join(x) for x in list(itertools.permutations(word, i))]
-            anagrams.extend(combi)
-
-        logging.info(itertools.permutations(word, 3))
+        for i in range(len(word) - 1, 2, -1):
+            result = itertools.combinations(list(word), i)
+            [anagrams.append("".join(x)) for x in list(result)]
         return anagrams
-        # for each in itertools.permutations(list(word), 3):
-        #     logging.info(each)
-        # return itertools.permutations(word, len(word)-1)
 
     @classmethod
     def saveAnagram(cls, word, user_email):
@@ -74,6 +76,3 @@ class Helper:
             user1.total_anagrams = user1.total_anagrams + 1
             user1.put()
         return
-
-
-

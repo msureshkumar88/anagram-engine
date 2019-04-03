@@ -71,14 +71,19 @@ class AnagramController:
         request.response.headers['Content-Type'] = 'text/html'
         user = UserController.get_user(request)
         errors = []
-        word = request.request.get('word')
-        anagrams_request = ndb.Key('Anagram', Helper.get_word_key(user["user"].email, word))
-        anagrams_request = anagrams_request.get()
         anagrams = []
-        if anagrams_request:
-            anagrams = anagrams_request.anagram
-        else:
-            errors.append("Anagrams not available for this search")
+        word = request.request.get('word')
+        if not Helper.validate_string(word):
+            errors.append("Invalid word entered, please enter alphabetical characters only")
+
+        if len(errors) == 0 :
+            anagrams_request = ndb.Key('Anagram', Helper.get_word_key(user["user"].email, word))
+            anagrams_request = anagrams_request.get()
+
+            if anagrams_request:
+                anagrams = anagrams_request.anagram
+            else:
+                errors.append("Anagrams not available for this search")
 
         data = {
             'url': user["url"],
@@ -114,6 +119,8 @@ class AnagramController:
         word = request.request.get('word')
         logging.info(word)
         sub_anagrams = Helper.getAnagramCombinations(word)
+        #logging.info(sub_anagrams)
+        # return
         matched_subs = []
         keys = []
         for val in sub_anagrams:

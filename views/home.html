@@ -10,13 +10,13 @@
 <!--</div>-->
 <div class="row">
     <div class="col-md-6">
-        {% if errors %}
-        <div class="alert alert-danger">{{errors}}</div>
-        {% endif %}
+        {% for err in errors %}
+             <div class="alert alert-danger">{{err}}</div>
+        {% endfor %}
         <form class="form-inline" name="search" method="post" action="">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="search">Search </label>
-                <input type="text" class="form-check-input" name="word" id="search">
+                <input type="text" class="form-check-input" name="word" id="search" pattern="[A-Za-z]+" required title="Please enter only alphabetic characters">
             </div>
 
             <input type="hidden" name="form" value="search_anagrams">
