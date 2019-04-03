@@ -16,6 +16,9 @@ from google.appengine.ext import blobstore
 class AnagramController:
     @classmethod
     def save_get(self, request):
+        # ndb.delete_multi(
+        #     Anagram.query().fetch(keys_only=True)
+        # )
         request.response.headers['Content-Type'] = 'text/html'
         user = UserController.get_user(request)
         logging.info(user)
@@ -57,6 +60,7 @@ class AnagramController:
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
+            'user': user['user'],
             'errors': errors
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/search.html')
@@ -129,7 +133,7 @@ class AnagramController:
             'user': user['user'],
             'anagrams': matched_subs
         }
-        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/upload.html')
+        template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/sub_anagram.html')
         request.response.write(template.render(data))
 
     @classmethod
