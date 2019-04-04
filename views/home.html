@@ -8,26 +8,35 @@
 <!--<div class="display-1">M. Suresh Kumar</div>-->
 <!--<div class="display-3">2997599</div>-->
 <!--</div>-->
+<br/>
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-12">
         {% for err in errors %}
-             <div class="alert alert-danger">{{err}}</div>
+        <div class="alert alert-danger">{{err}}</div>
         {% endfor %}
-        <form class="form-inline" name="search" method="post" action="">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="search">Search </label>
-                <input type="text" class="form-check-input" name="word" id="search" pattern="[A-Za-z]+" required title="Please enter only alphabetic characters">
-            </div>
+        <form name="search" method="post" action="">
+            <!--<div class="form-check form-check-inline">-->
+            <!--<label class="form-check-label" for="search">Search </label>-->
+            <!--<input type="text" class="form-control" name="word" id="search" pattern="[A-Za-z]+" required title="Please enter only alphabetic characters">-->
+            <!--</div>-->
 
-            <input type="hidden" name="form" value="search_anagrams">
-            <input class="btn btn-info" type="submit" name="button" value="Search">
+            <!--<input type="hidden" name="form" value="search_anagrams">-->
+            <!--<input class="btn btn-info" type="submit" name="button" value="Search">-->
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-lg" name="word" pattern="[A-Za-z]+" required title="Please enter only alphabetic characters" placeholder="Word"
+                       aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                </div>
+            </div>
 
         </form>
     </div>
 </div>
 <div class="row">
     <div class="col-md-6">
-<ul class="list-group">
+        <ul class="list-group">
             {% for val in anagrams %}
             <li class="list-group-item">{{ val }}</li>
             {% endfor %}

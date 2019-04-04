@@ -2,9 +2,20 @@
 {% block title %}GPU DB{% endblock %}
 {% block user_url %}{{url}}{% endblock %}{% block user_text %}{{url_string}}{% endblock %}
 {% block content %}
+<br>
 <form action="{{upload_url}}" method="POST" enctype="multipart/form-data">
-  Upload File: <input type="file" name="file"><br>
-  <input type="submit" name="submit" value="Submit">
+  <!--Upload File: <input type="file" name="file"><br>-->
+  <!--<input type="submit" name="submit" value="Submit">-->
+
+  <div class="input-group mb-3">
+  <div class="custom-file">
+    <input type="file" class="custom-file-input"  required name="file" id="inputGroupFile02">
+    <label class="custom-file-label" for="inputGroupFile02" aria-describedby="inputGroupFileAddon02">Choose file</label>
+  </div>
+  <div class="input-group-append">
+    <button class="input-group-text" type="submit" id="inputGroupFileAddon02">Upload</button>
+  </div>
+</div>
 </form>
 
 {% endblock %}

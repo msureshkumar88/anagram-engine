@@ -7,9 +7,35 @@
     {{err}}
 {% endfor %}
 
-<form method="post" action="/anagram/save">
-<input type="text" name="word"/>
-    <input type="submit">
-</form>
+<!--<form method="post" action="/anagram/save">-->
+<!--<input type="text" name="word"/>-->
+    <!--<input type="submit">-->
+<!--</form>-->
+<br>
+<div class="row">
+    <div class="col-md-12">
+        {% for err in errors %}
+        <div class="alert alert-danger">{{err}}</div>
+        {% endfor %}
+        <form name="save" method="post" action="">
+            <!--<div class="form-check form-check-inline">-->
+            <!--<label class="form-check-label" for="search">Search </label>-->
+            <!--<input type="text" class="form-control" name="word" id="search" pattern="[A-Za-z]+" required title="Please enter only alphabetic characters">-->
+            <!--</div>-->
+
+            <!--<input type="hidden" name="form" value="search_anagrams">-->
+            <!--<input class="btn btn-info" type="submit" name="button" value="Search">-->
+
+            <div class="input-group mb-3">
+                <input type="text" class="form-control form-control-lg" name="word" pattern="[A-Za-z]+" required title="Please enter only alphabetic characters" placeholder="Word"
+                       aria-label="Recipient's username" aria-describedby="button-addon2">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Add</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
 
 {% endblock %}
