@@ -35,7 +35,7 @@ class AnagramController:
         errors = []
         request.response.headers['Content-Type'] = 'text/html'
         user = UserController.get_user(request)
-
+        success = False
         word = request.request.get('word')
         if Helper.validate_string(word) == None:
             errors.append("Please enter valid word")
@@ -46,7 +46,8 @@ class AnagramController:
             'url': user["url"],
             'url_string': user['url_string'],
             'user': user['user'],
-            'errors': errors
+            'errors': errors,
+            'success': True
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/save.html')
         request.response.write(template.render(data))

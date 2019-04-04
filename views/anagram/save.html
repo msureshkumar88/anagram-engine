@@ -3,10 +3,6 @@
 {% block user_url %}{{url}}{% endblock %}{% block user_text %}{{url_string}}{% endblock %}
 {% block content %}
 
-{% for err in errors %}
-    {{err}}
-{% endfor %}
-
 <!--<form method="post" action="/anagram/save">-->
 <!--<input type="text" name="word"/>-->
     <!--<input type="submit">-->
@@ -19,6 +15,9 @@
         {% for err in errors %}
         <div class="alert alert-danger">{{err}}</div>
         {% endfor %}
+        {% if success %}
+            <div class="alert alert-success">Word has been added successfully</div>
+        {%endif%}
         <form name="save" method="post" action="">
             <!--<div class="form-check form-check-inline">-->
             <!--<label class="form-check-label" for="search">Search </label>-->
