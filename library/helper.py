@@ -43,7 +43,7 @@ class Helper:
     @classmethod
     def getAnagramCombinations(cls, word):
         anagrams = []
-        for i in range(len(word) - 1, 2, -1):
+        for i in range(len(word) , 2, -1):
             result = itertools.combinations(list(word), i)
             [anagrams.append("".join(x)) for x in list(result)]
         return anagrams
