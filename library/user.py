@@ -24,7 +24,7 @@ class UserController:
                 myuser.put()
         else:
             url = users.create_login_url(current_user.request.uri)
-            url_string = 'login'
+            url_string = 'Login'
 
         data = {
             'url': url,
