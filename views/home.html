@@ -9,6 +9,7 @@
 <!--<div class="display-3">2997599</div>-->
 <!--</div>-->
 <br/>
+{% if user%}
 <div class="row">
     <div class="col-md-12">
         {% for err in errors %}
@@ -43,6 +44,10 @@
         </ul>
     </div>
 </div>
-
+{% else %}
+<div class="row">
+    <h2>Welcome to Anagram Engine Please login to generate anagrams</h2>
+</div>
+{% endif %}
 
 {% endblock %}

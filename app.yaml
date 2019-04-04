@@ -12,18 +12,23 @@ handlers:
 
 - url: /anagram/save
   script: controllers.anagram_request.app
+  login: required
 
 - url: /anagram/search
   script: controllers.anagram_request.app
+  login: required
 
 - url: /anagram/sub_anagram
   script: controllers.anagram_request.app
+  login: required
 
 - url: /anagram/upload
   script: controllers.anagram_request.app
+  login: required
 
 - url: /upload_text
   script: controllers.anagram_upload.app
+  login: required
 
 - url: /assets
   static_dir: assets

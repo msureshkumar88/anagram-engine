@@ -20,11 +20,11 @@ class MainPage(webapp2.RequestHandler):
             'url_string': user['url_string'],
             'user': user['user']
         }
-
-        shapes = ['c', 't', 's', ]
-        result = itertools.combinations(shapes, 2)
-        for each in result:
-            logging.info("".join(list(each)))
+        logging.info(user)
+        # shapes = ['c', 't', 's', ]
+        # result = itertools.combinations(shapes, 2)
+        # for each in result:
+        #     logging.info("".join(list(each)))
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/home.html')
         self.response.write(template.render(template_values))
 
