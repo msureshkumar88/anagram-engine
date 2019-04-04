@@ -3,9 +3,6 @@
 {% block user_url %}{{url}}{% endblock %}{% block user_text %}{{url_string}}{% endblock %}
 {% block content %}
 
-{% for err in errors %}
-    {{err}}
-{% endfor %}
 
 <!--<form method="post" action="/anagram/sub_anagram">-->
 <!--<input type="text" name="word"/>-->
@@ -15,6 +12,7 @@
 <br>
 <div class="row">
     <div class="col-md-12">
+        <h1>Generate Sub Anagram</h1>
         {% for err in errors %}
         <div class="alert alert-danger">{{err}}</div>
         {% endfor %}
