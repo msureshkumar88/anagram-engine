@@ -18,7 +18,7 @@ class AnagramUpload(blobstore_handlers.BlobstoreUploadHandler):
             if Helper.validate_string(val):
                 Helper.saveAnagram(val,user['user'].email)
         blobstore.delete(upload.key())
-        self.redirect('/anagram/upload')
+        self.redirect('/anagram/upload?success=success')
 
 app = webapp2.WSGIApplication([
     ('/upload_text', AnagramUpload)

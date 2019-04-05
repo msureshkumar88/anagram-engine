@@ -150,12 +150,15 @@ class AnagramController:
         user = UserController.get_user(request)
         errors = []
         upload_url = blobstore.create_upload_url('/upload_text')
+        success = request.request.params
+
         data = {
             'url': user["url"],
             'url_string': user['url_string'],
             'errors': errors,
             'user': user['user'],
-            'upload_url': upload_url
+            'upload_url': upload_url,
+            'success': success
         }
         template = template_engine.JINJA_ENVIRONMENT.get_template('views/anagram/upload.html')
         request.response.write(template.render(data))
